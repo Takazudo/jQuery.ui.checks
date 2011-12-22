@@ -4,8 +4,8 @@
  * @author    : Takeshi Takatsudo (takazudo[at]gmail.com)
  * @copyright : Takeshi Takatsudo
  * @license   : The MIT License
- * @link      : http://.....
- * @modified  : 2011/04/26 HH:MM:SS
+ * @link      : https://github.com/Takazudo/jQuery.ui.checks
+ * @modified  : 2011/12/23
  *
  * some comments here
  */
