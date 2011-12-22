@@ -1,0 +1,179 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="jquery.ui.widget.min.js"></script>
+<script src="jquery.ui.checks.js"></script>
+<script>
+$(function(){
+	
+	/* log dumper for debug */
+	
+	var log = window.log = function(text){
+		var $item = $('<div>' + text + '</div>');
+		$('#console').prepend($item);
+		setTimeout(function(){
+			$item.fadeOut(function(){
+				$item.remove();
+			});
+		}, 3000);
+	}
+
+	/* examples */
+
+	$('#example1 .ui-decochecker').decochecker()
+		.bind('decochecker.check', function(){
+			log('decochecker.check fired');
+		})
+		.bind('decochecker.uncheck', function(){
+			log('decochecker.uncheck fired');
+		});
+
+	$('#example2 .ui-allchecker').allchecker();
+
+	$('#example3 .ui-decoradioset').decoradioset()
+		.bind('decoradioset.check', function(e, data){
+			log('decoradioset.check fired, data: ' +  data.val);
+		})
+		.bind('decoradioset.uncheck', function(e, data){
+			log('decoradioset.uncheck fired.');
+		})
+		.bind('decoradioset.uncheckall', function(){
+			log('decoradioset.uncheckall fired.');
+		});
+
+
+	$('#example4 .ui-decoradioset').decoradioset({
+		clickrelease: true
+	});
+		
+
+});
+</script>
+</head>
+<body>
+<div id="console"></div>
+<div id="playground">
+
+	<h1>checkers</h1>
+
+	<h2>decochecker</h2>
+	<div id="example1">
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="A"><span>checkbox A</span></label></div>
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="B"><span>checkbox B</span></label></div>
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="C"><span>checkbox C</span></label></div>
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="D"><span>checkbox D</span></label></div>
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="E"><span>checkbox E</span></label></div>
+		<div class="ui-decochecker" id="checkboxA"><label><input type="checkbox" value="F"><span>checkbox F</span></label></div>
+	<!-- /#example1 --></div>
+	method calls:
+	<button onclick="$('#example1 .ui-decochecker').decochecker('disable')">disable</button>
+	<button onclick="$('#example1 .ui-decochecker').decochecker('enable')">enable</button>
+	<button onclick="$('#example1 .ui-decochecker').decochecker('check')">check</button>
+	<button onclick="$('#example1 .ui-decochecker').decochecker('uncheck')">uncheck</button>
+	<button onclick="$('#example1 .ui-decochecker').decochecker('check', true)">check (silent)</button>
+	<button onclick="$('#example1 .ui-decochecker').decochecker('uncheck', true)">uncheck (silent)</button>
+	<button onclick="alert($('#checkboxA').decochecker('val'))">checkboxA's val</button>
+	<button onclick="alert($('#checkboxA').decochecker('isChecked'))">checkboxA isChecked</button>
+	<button onclick="alert($('#checkboxA').decochecker('isDisabled'))">checkboxA isDisabled</button>
+
+	<h2>allchecker</h2>
+	<div id="example2">
+		<div class="allcheckers">
+			<div class="ui-allchecker ui-decochecker" data-allchecker-value="A" data-allchecker-target="example2-checkers" ><label><input type="checkbox"><span>A</span></label></div>
+			<div class="ui-allchecker ui-decochecker" data-allchecker-value="B" data-allchecker-target="example2-checkers" ><label><input type="checkbox"><span>B</span></label></div>
+			<div class="ui-allchecker ui-decochecker" data-allchecker-value="C" data-allchecker-target="example2-checkers" ><label><input type="checkbox"><span>C</span></label></div>
+			<div class="ui-allchecker ui-decochecker" data-allchecker-value="D" data-allchecker-target="example2-checkers" ><label><input type="checkbox"><span>D</span></label></div>
+			<div class="ui-allchecker ui-decochecker" data-allchecker-value="E" data-allchecker-target="example2-checkers" ><label><input type="checkbox"><span>E</span></label></div>
+		</div>
+		<div id="example2-checkers">
+			<div class="group">
+				<div class="ui-decochecker"><label><input type="checkbox" value="A"><span>A</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="B"><span>B</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="C"><span>C</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="D"><span>D</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="E"><span>E</span></label></div>
+			</div>
+			<div class="group">
+				<div class="ui-decochecker"><label><input type="checkbox" value="A"><span>A</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="B"><span>B</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="C"><span>C</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="D"><span>D</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="E"><span>E</span></label></div>
+			</div>
+			<div class="group">
+				<div class="ui-decochecker"><label><input type="checkbox" value="A"><span>A</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="B"><span>B</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="C"><span>C</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="D"><span>D</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="E"><span>E</span></label></div>
+			</div>
+			<div class="group">
+				<div class="ui-decochecker"><label><input type="checkbox" value="A"><span>A</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="B"><span>B</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="C"><span>C</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="D"><span>D</span></label></div>
+				<div class="ui-decochecker"><label><input type="checkbox" value="E"><span>E</span></label></div>
+			</div>
+		<!-- /#example2-checkers --></div>
+	<!-- /#example2 --></div>
+
+	<h2>decoradioset</h2>
+	<div id="example3">
+		<div class="group ui-decoradioset" id="example3-1">
+			<div class="ui-decoradio"><label><span>decoradio1-A</span><input type="radio" name="example3-1" value="decoradio1-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-B</span><input type="radio" name="example3-1" value="decoradio1-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-C</span><input type="radio" name="example3-1" value="decoradio1-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-D</span><input type="radio" name="example3-1" value="decoradio1-D"></label></div>
+			<a href="#" class="ui-decoradioset-unchecker">uncheck all</a>
+			<button onclick="$('#example3-1').decoradioset('uncheckall')">uncheckall (via method call)</button>
+		</div>
+		<div class="group ui-decoradioset" id="example3-2">
+			<div class="ui-decoradio"><label><span>decoradio2-A</span><input type="radio" name="example3-2" value="decoradio2-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-B</span><input type="radio" name="example3-2" value="decoradio2-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-C</span><input type="radio" name="example3-2" value="decoradio2-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-D</span><input type="radio" name="example3-2" value="decoradio2-D"></label></div>
+			<a href="#" class="ui-decoradioset-unchecker">uncheck all</a>
+			<button onclick="$('#example3-2').decoradioset('uncheckall')">uncheckall (via method call)</button>
+		</div>
+		<div class="group ui-decoradioset" id="example3-3">
+			<div class="ui-decoradio"><label><span>decoradio3-A</span><input type="radio" name="example3-3" value="decoradio3-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-B</span><input type="radio" name="example3-3" value="decoradio3-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-C</span><input type="radio" name="example3-3" value="decoradio3-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-D</span><input type="radio" name="example3-3" value="decoradio3-D"></label></div>
+			<a href="#" class="ui-decoradioset-unchecker">uncheck all</a>
+			<button onclick="$('#example3-3').decoradioset('uncheckall')">uncheckall (via method call)</button>
+		</div>
+	<!-- /#example3 --></div>
+
+	<h2>decoradioset (clickrelease)</h2>
+	<p>These radios can be unchecked when it was clicked again.</p>
+	<div id="example4">
+		<div class="group ui-decoradioset">
+			<div class="ui-decoradio"><label><span>decoradio1-A</span><input type="radio" name="example3-1" value="decoradio1-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-B</span><input type="radio" name="example3-1" value="decoradio1-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-C</span><input type="radio" name="example3-1" value="decoradio1-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio1-D</span><input type="radio" name="example3-1" value="decoradio1-D"></label></div>
+		</div>
+		<div class="group ui-decoradioset">
+			<div class="ui-decoradio"><label><span>decoradio2-A</span><input type="radio" name="example3-2" value="decoradio2-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-B</span><input type="radio" name="example3-2" value="decoradio2-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-C</span><input type="radio" name="example3-2" value="decoradio2-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio2-D</span><input type="radio" name="example3-2" value="decoradio2-D"></label></div>
+		</div>
+		<div class="group ui-decoradioset">
+			<div class="ui-decoradio"><label><span>decoradio3-A</span><input type="radio" name="example3-3" value="decoradio3-A"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-B</span><input type="radio" name="example3-3" value="decoradio3-B"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-C</span><input type="radio" name="example3-3" value="decoradio3-C"></label></div>
+			<div class="ui-decoradio"><label><span>decoradio3-D</span><input type="radio" name="example3-3" value="decoradio3-D"></label></div>
+		</div>
+	<!-- /#example3 --></div>
+
+<!-- /#playground --></div>
+</div>
+</body>
+</html>
